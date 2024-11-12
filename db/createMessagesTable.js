@@ -1,5 +1,4 @@
 require("dotenv").config({ path: "../.env" });
-
 const { Client } = require("pg");
 
 const SQL = `
@@ -10,16 +9,16 @@ CREATE TABLE IF NOT EXISTS messages (
   timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
-
-INSERT INTO messages (message,author)
+-- Insert some test data
+INSERT INTO messages (message, author)
 VALUES
- ('Hello,world!', 'Admin'),
- ('Welcome to the message board!,'Moderator'),
- ('This is a sample message.','Alan');
+  ('Hello, world!', 'Admin'),
+  ('Welcome to the message board!', 'Moderator'),
+  ('This is a sample message.', 'Alan');
 `;
 
 async function main() {
-  console.log("Seeding data...");
+  console.log("Connecting to the database...");
 
   const client = new Client({
     connectionString:
@@ -29,12 +28,16 @@ async function main() {
 
   try {
     await client.connect();
+    console.log("Connection successful");
+
+    console.log("Creating table and seeding data...");
     await client.query(SQL);
-    console.log("Table created, data seeded");
+    console.log("Table created, data seeded successfully.");
   } catch (error) {
     console.error("Error creating table or seeding data:", error);
   } finally {
     await client.end();
+    console.log("Connection closed");
   }
 }
 
