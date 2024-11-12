@@ -6,12 +6,10 @@ const {
   renderNewMsgForm,
 } = require("../controllers/messagesController");
 
-const messagesrouter = Router();
+const messagesRouter = Router();
 
-messagesrouter.get("/", displayMessages);
+messagesRouter.get("/", displayMessages);
+messagesRouter.get("/new", renderNewMsgForm);
+messagesRouter.post("/new", postMessage);
 
-messagesrouter.get("/new", renderNewMsgForm);
-
-messagesrouter.post("/new", postMessage);
-
-module.exports = messagesrouter;
+module.exports = messagesRouter;
