@@ -3,7 +3,7 @@ const { getAllMessages, insertMessage } = require("../db/queries");
 async function displayMessages(req, res) {
   try {
     const messages = await getAllMessages();
-    res.render("index", { messages });
+    res.render("index", { title: "Message Board", messages });
   } catch (error) {
     res.status(500).send("Error fetching messages");
   }
