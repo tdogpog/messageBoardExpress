@@ -10,9 +10,9 @@
     <ul>
       <% messages.forEach(message => { %>
       <li>
-        <strong><%= message.user %>:</strong> <%= message.text %>
+        <strong><%= message.author %>:</strong> <%= message.message %>
         <br />
-        <em>Added on: <%= message.added.toLocaleString() %></em>
+        <em>Added on: <%= message.timestamp </em>
       </li>
       <% }); %>
     </ul>
