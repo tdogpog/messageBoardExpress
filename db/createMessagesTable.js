@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+require("dotenv").config();
 const { Client } = require("pg");
 
 const SQL = `
@@ -24,7 +24,7 @@ async function main() {
   const client = new Client({
     connectionString:
       process.env.DATABASE_URL ||
-      "postgresql://DB_USER:DB_PASSWORD@DB_HOST:DB_PORT/DB_NAME",
+      `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
   });
 
   try {
