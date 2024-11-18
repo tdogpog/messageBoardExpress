@@ -53,4 +53,8 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+authRouter.get("/log-out", userLogout);
+authRouter.post("/log-in", userLogin);
+authRouter.post("/sign-up", userSignUp);
+
 module.exports = authRouter;
