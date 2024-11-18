@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const path = require("node:path");
 const messagesRouter = require("./routes/messagesRouter");
+//////////////////// AuthImports
+const bcrypt = require("bcryptjs");
+const pool = require("./db/pool");
+const session = require("express-session");
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
