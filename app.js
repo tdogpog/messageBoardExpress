@@ -7,12 +7,15 @@ const bcrypt = require("bcryptjs");
 const pool = require("./db/pool");
 const session = require("express-session");
 
+//sess middleware
+app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
+app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-//indexRouter can handle anything under it because i've registered it to handle
-//anything that starts with /... which is everything.
+//messages router come after sess middleware
 app.use("/", messagesRouter);
 
 const PORT = process.env.PORT || 3000;
