@@ -9,7 +9,7 @@
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/log-out">LOG OUT</a>
     <% } else { %>
-    <h1>Please log in to view message board</h1>
+    <h1>Please log in to make posts</h1>
     <form action="/log-in" method="POST">
       <label for="username">Username</label>
       <input id="username" name="username" placeholder="username" type="text" />
@@ -20,5 +20,17 @@
     <%}%>
     <h1>Dont have an account?</h1>
     <button><a href="/sign-up">Sign Up</a></button>
+    <h2>Messages</h2>
+    <ul>
+      <% messages.forEach((message) => { %>
+      <li>
+        <strong><%= message.title %></strong>
+        <p><%= message.content %></p>
+        <% if (user && user.membership === "member") { %>
+        <small>By: <%= message.username %> on <%= message.timestamp %></small>
+        <% } %>
+      </li>
+      <% }); %>
+    </ul>
   </body>
 </html>

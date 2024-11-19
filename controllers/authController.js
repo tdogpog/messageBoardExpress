@@ -23,6 +23,13 @@ const signupValidation = [
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 chars long"),
+  //user must confirm password
+  body("passwordConfirm").custom((passwordConfirm, { req }) => {
+    if (passwordConfirm !== req.body.password) {
+      throw new Error("Passwords must match");
+    }
+    return true;
+  }),
 ];
 
 //controller functions///

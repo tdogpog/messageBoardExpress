@@ -1,9 +1,19 @@
 const pool = require("./pool");
 
 async function getAllMessages() {
-  const result = await pool.query(
-    "SELECT * FROM messages ORDER BY timestamp DESC"
-  );
+  const result = await pool.query(`
+    SELECT 
+      messages.title,
+      messages.message AS content,
+      messages.timestamp,
+      users.username
+    FROM 
+      messages
+    INNER JOIN 
+      users
+    ON 
+      messages.user_id = users.id;
+  `);
   return result.rows;
 }
 
