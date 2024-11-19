@@ -1,6 +1,8 @@
 const passport = require("passport");
 
-async function homepage(req, res) {}
+async function homepage(req, res) {
+  res.render("index", { user: req.session.user });
+}
 
 function getUserSignUp(req, res) {
   res.render("sign-up-form");
