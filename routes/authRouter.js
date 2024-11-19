@@ -13,6 +13,7 @@ const {
   userLogout,
   userLogin,
   userSignUp,
+  signupValidation,
 } = require("../controllers/authController");
 
 const authRouter = Router();
@@ -67,6 +68,6 @@ authRouter.get("/", homepage);
 authRouter.get("/sign-up", getUserSignUp);
 authRouter.get("/log-out", userLogout);
 authRouter.post("/log-in", userLogin);
-authRouter.post("/sign-up", userSignUp);
+authRouter.post("/sign-up", signupValidation, userSignUp);
 
 module.exports = authRouter;

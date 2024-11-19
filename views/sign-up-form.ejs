@@ -13,6 +13,7 @@
         name="firstname"
         placeholder="First Name"
         type="text"
+        value="<%= formData ? formData.firstname : '' %>"
       />
       <label for="lastname">Last Name</label>
       <input
@@ -20,6 +21,7 @@
         name="lastname"
         placeholder="Last Name"
         type="text"
+        value="<%= formData ? formData.lastname : '' %>"
       />
       <label for="username">Username</label>
       <input
@@ -27,10 +29,19 @@
         name="username"
         placeholder="User Name"
         type="text"
+        value="<%= formData ? formData.username : '' %>"
       />
       <label for="password">Password</label>
       <input id="password" name="password" type="password" />
       <button>Sign Up</button>
     </form>
+
+    <% if (errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+    <% } %>
   </body>
 </html>
