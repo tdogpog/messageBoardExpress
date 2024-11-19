@@ -1,9 +1,19 @@
+//overarching layer
 const { Router } = require("express");
 //authentication layer
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcryptjs");
 const pool = require("../db/pool");
+
+//controller layer
+const {
+  homepage,
+  getUserSignUp,
+  userLogout,
+  userLogin,
+  userSignUp,
+} = require("../controllers/authController");
 
 const authRouter = Router();
 
@@ -53,6 +63,8 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+authRouter.get("/", homepage);
+authRouter.get("/sign-up", getUserSignUp);
 authRouter.get("/log-out", userLogout);
 authRouter.post("/log-in", userLogin);
 authRouter.post("/sign-up", userSignUp);
