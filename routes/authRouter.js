@@ -14,6 +14,7 @@ const {
   userLogin,
   userSignUp,
   signupValidation,
+  handleMembership,
 } = require("../controllers/authController");
 
 const authRouter = Router();
@@ -67,6 +68,7 @@ passport.deserializeUser(async (id, done) => {
 authRouter.get("/", homepage);
 authRouter.get("/sign-up", getUserSignUp);
 authRouter.get("/log-out", userLogout);
+authRouter.post("/membership", handleMembership);
 authRouter.post("/log-in", userLogin);
 authRouter.post("/sign-up", signupValidation, userSignUp);
 

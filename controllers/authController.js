@@ -96,6 +96,25 @@ async function userSignUp(req, res) {
   });
 }
 
+//VERIFY THAT THE USERID REQ.SES HOOKS THE DB USERID
+async function handleMembership(req, res) {
+  const { secretKey } = req.body;
+  if (secretKey === process.env.MEMBERSHIP_SECRET) {
+    try {
+      const userID = req.session.userID;
+      await pool.query("UPDATE users SET membership=true WHERE id=$1", [
+        userID,
+      ]);
+      return res.redirect("/");
+    } catch (err) {
+      console.error("Error updating membership:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+  } else {
+    res.render("membership", { error: "Invalid secret key." });
+  }
+}
+
 module.exports = {
   homepage,
   getUserSignUp,
@@ -103,4 +122,5 @@ module.exports = {
   userLogin,
   userSignUp,
   signupValidation,
+  handleMembership,
 };
