@@ -96,6 +96,9 @@ async function userSignUp(req, res) {
   });
 }
 
+function getMembership(req, res) {
+  res.render("membership");
+}
 //VERIFY THAT THE USERID REQ.SES HOOKS THE DB USERID
 async function handleMembership(req, res) {
   const { secretKey } = req.body;
@@ -122,5 +125,6 @@ module.exports = {
   userLogin,
   userSignUp,
   signupValidation,
+  getMembership,
   handleMembership,
 };

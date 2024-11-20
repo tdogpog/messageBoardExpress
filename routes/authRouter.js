@@ -14,6 +14,7 @@ const {
   userLogin,
   userSignUp,
   signupValidation,
+  getMembership,
   handleMembership,
 } = require("../controllers/authController");
 
@@ -68,6 +69,7 @@ passport.deserializeUser(async (id, done) => {
 authRouter.get("/", homepage);
 authRouter.get("/sign-up", getUserSignUp);
 authRouter.get("/log-out", userLogout);
+authRouter.get("/membership", getMembership);
 authRouter.post("/membership", handleMembership);
 authRouter.post("/log-in", userLogin);
 authRouter.post("/sign-up", signupValidation, userSignUp);
