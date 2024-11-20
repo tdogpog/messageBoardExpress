@@ -82,7 +82,9 @@ async function homepage(req, res) {
 }
 
 function getUserSignUp(req, res) {
-  res.render("sign-up-form");
+  // give the initial render arguments for errors/formData
+  // or else formData will go undefined and 404 the page
+  res.render("sign-up-form", { errors: [], formData: {} });
 }
 
 function userLogout(req, res, next) {
@@ -113,7 +115,7 @@ async function userSignUp(req, res) {
       //send back the errors
       errors: errors.array(),
       //send back the form data so the user doesnt have to restart every field on re-render
-      formData: req.body,
+      formData: req.body || {},
     });
   }
 
