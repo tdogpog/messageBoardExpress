@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership Form</title>
+  </head>
+  <body>
+    <h1>Enter the secret key to become a member</h1>
+    <form action="" method="POST">
+      <label for="secretKey">Secret Key</label>
+      <input
+        id="secretKey"
+        name="secretKey"
+        placeholder="Enter the secret key"
+        type="text"
+      />
+      <button type="submit">Submit</button>
+    </form>
+
+    <% if (error) { %>
+    <p style="color: red"><%= error %></p>
+    <% } %>
+  </body>
+</html>

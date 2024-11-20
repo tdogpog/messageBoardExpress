@@ -3,13 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
+    <title><%= Create a message %></title>
   </head>
   <body>
     <h1><%= title %></h1>
+
+    <% if (unauthorized) { %>
+    <p style="color: red"><%= unauthorized %></p>
+    <% } %>
+
     <form method="POST" action="/new">
-      <label for="author">Name:</label>
-      <input type="text" id="author" name="author" required />
+      <label for="title">Name:</label>
+      <input type="text" id="title" name="title" required />
 
       <label for="message">Message:</label>
       <input type="text" id="message" name="message" required />
