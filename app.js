@@ -7,7 +7,9 @@ const authRouter = require("./routes/authRouter");
 //////////////////// AuthImports
 const session = require("express-session");
 const pool = require("./db/pool");
-require("dotenv").config({ path: "../.env" });
+const pgSession = require("connect-pg-simple")(session);
+const passport = require("passport");
+require("dotenv").config({ path: "./.env" });
 
 //sess middleware first to handle sess data for all routes
 app.use(
@@ -37,8 +39,12 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 //messages router come after sess middleware
+
+//auth related routes and our homepage
 app.use("/", authRouter);
-app.use("/", messagesRouter);
+
+//msg related routes
+app.use("/messages", messagesRouter);
 
 const PORT = process.env.PORT || 3000;
 

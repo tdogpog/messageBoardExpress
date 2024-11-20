@@ -1,6 +1,7 @@
 const pool = require("./pool");
 
 async function getAllMessages() {
+  console.log("fetching messages...");
   const result = await pool.query(`
     SELECT 
       messages.title,
@@ -14,6 +15,7 @@ async function getAllMessages() {
     ON 
       messages.user_id = users.id;
   `);
+  console.log("fetched", result.rows);
   return result.rows;
 }
 

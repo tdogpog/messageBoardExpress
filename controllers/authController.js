@@ -2,6 +2,8 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const pool = require("../db/pool");
 const { body, validationResult } = require("express-validator");
+const { getAllMessages } = require("../db/queries");
+require("dotenv").config({ path: "../.env" });
 
 //input validation///
 const signupValidation = [
@@ -34,7 +36,49 @@ const signupValidation = [
 
 //controller functions///
 async function homepage(req, res) {
-  res.render("index", { user: req.session.user });
+  //this should operate regardless if user has an account or not
+  try {
+    const messages = await getAllMessages();
+    console.log("messages after the db await", messages);
+
+    //check if the user is a member
+    const isMember =
+      req.session.user && req.session.user.membership === "member";
+
+    //conditional return to the const
+    // what will be sent to the render response
+    const messagesToRender = messages.map((message) => {
+      if (isMember) {
+        //contains messages.title, messages.message AS content,
+        //messages.timestamp,
+        //users.username
+        return {
+          title: message.title,
+          content: message.content,
+          timestamp: message.timestamp,
+          username: message.username,
+        };
+      }
+
+      return {
+        title: message.title,
+        content: message.content,
+        timestamp: message.timestamp,
+      };
+    });
+
+    //check if we're getting anything
+    console.log("messagesToRender after the map:", messagesToRender);
+
+    res.render("index", {
+      title: "Message Board",
+      user: req.session.user,
+      messages: messagesToRender,
+    });
+  } catch (error) {
+    console.error("Error posting message:", error);
+    res.status(500).send("Error fetching messages");
+  }
 }
 
 function getUserSignUp(req, res) {
@@ -105,7 +149,7 @@ async function handleMembership(req, res) {
   const { secretKey } = req.body;
   if (secretKey === process.env.MEMBERSHIP_SECRET) {
     try {
-      const userID = req.session.userID;
+      const userID = req.session.user.id;
       await pool.query("UPDATE users SET membership=true WHERE id=$1", [
         userID,
       ]);

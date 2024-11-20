@@ -25,6 +25,9 @@
     <h1>Dont have an account?</h1>
     <button><a href="/sign-up">Sign Up</a></button>
     <h2>Messages</h2>
+    <% if (messages.length === 0) { %>
+    <p>No messages to display.</p>
+    <% } else { %>
     <ul>
       <% messages.forEach((message) => { %>
       <li>
@@ -36,5 +39,6 @@
       </li>
       <% }); %>
     </ul>
+    <% } %>
   </body>
 </html>
