@@ -96,6 +96,7 @@ async function userSignUp(req, res) {
   });
 }
 
+//membership section//
 function getMembership(req, res) {
   res.render("membership");
 }

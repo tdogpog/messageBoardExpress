@@ -17,9 +17,10 @@ async function getAllMessages() {
   return result.rows;
 }
 
-async function insertMessage(message, author) {
-  const query = "INSERT INTO messages (message, author) VALUES ($1, $2)";
-  await pool.query(query, [message, author]);
+async function insertMessage(message, title, user_id) {
+  const query =
+    "INSERT INTO messages (message, title, user_id) VALUES ($1, $2, $3)";
+  await pool.query(query, [message, title, user_id]);
 }
 
 module.exports = { getAllMessages, insertMessage };

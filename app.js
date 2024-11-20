@@ -21,7 +21,7 @@ app.use(
     saveUninitialized: false, // Don't save uninitialized sessions (good for privacy)
     cookie: {
       secure: false, // Set to true in production if using HTTPS
-      maxAge: 15 * 60 * 1000, // Session expiration time, in milliseconds (e.g., 1 hour)
+      maxAge: 15 * 60 * 1000, // Session expiration time, in milliseconds, this is 15 minutes
     },
   })
 );

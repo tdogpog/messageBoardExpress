@@ -18,6 +18,7 @@ const {
   handleMembership,
 } = require("../controllers/authController");
 
+//route declaration
 const authRouter = Router();
 
 //middleware for auth
@@ -66,6 +67,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+//routers
 authRouter.get("/", homepage);
 authRouter.get("/sign-up", getUserSignUp);
 authRouter.get("/log-out", userLogout);
