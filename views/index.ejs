@@ -8,7 +8,7 @@
     <% if (user) {%>
     <h1>Welcome Back, <%= user.username %></h1>
     <ul>
-      <li><a href="/new">Create a new message</a></li>
+      <li><a href="/messages/new">Create a new message</a></li>
       <br />
       <% if (user && !user.membership) { %>
       <li><a href="/membership">Got the passcode? Become a member.</a></li>

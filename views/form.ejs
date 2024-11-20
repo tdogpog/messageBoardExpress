@@ -3,23 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= Create a message %></title>
+    <title><%= title %></title>
   </head>
   <body>
-    <h1><%= title %></h1>
-
     <% if (unauthorized) { %>
     <p style="color: red"><%= unauthorized %></p>
     <% } %>
 
-    <form method="POST" action="/new">
-      <label for="title">Name:</label>
-      <input type="text" id="title" name="title" required />
-
-      <label for="message">Message:</label>
-      <input type="text" id="message" name="message" required />
-
-      <button type="submit">Submit</button>
+    <form method="POST" action="/messages/new">
+      <ul>
+        <li>
+          <label for="title">Post Title:</label>
+          <input type="text" id="title" name="title" required />
+        </li>
+        <br />
+        <li>
+          <label for="message">Message:</label>
+          <input type="text" id="message" name="message" required />
+        </li>
+        <br />
+        <li>
+          <button type="submit">Submit</button>
+        </li>
+      </ul>
     </form>
   </body>
 </html>
