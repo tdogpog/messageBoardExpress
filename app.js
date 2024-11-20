@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("node:path");
+require("dotenv").config();
 const messagesRouter = require("./routes/messagesRouter");
 const authRouter = require("./routes/authRouter");
 
@@ -9,7 +10,6 @@ const session = require("express-session");
 const pool = require("./db/pool");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("passport");
-require("dotenv").config({ path: "./.env" });
 
 //sess middleware first to handle sess data for all routes
 app.use(
