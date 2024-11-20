@@ -17,6 +17,7 @@ app.use(
     store: new pgSession({
       pool: pool, // The PostgreSQL connection pool
       tableName: "session", // The table name where sessions will be stored
+      createTableIfMissing: true,
     }),
     secret: process.env.SESSION_SECRET, // A string used to sign the session ID cookie
     resave: false, // Don't force save on every request (good for performance)

@@ -72,7 +72,7 @@ async function homepage(req, res) {
 
     res.render("index", {
       title: "Message Board",
-      user: req.session.user,
+      user: req.user,
       messages: messagesToRender,
     });
   } catch (error) {
@@ -93,15 +93,15 @@ function userLogout(req, res, next) {
       return next(err);
     }
     res.redirect("/");
-    authRouter.get("/sign-up", getUserSignUp);
   });
 }
 
-function userLogin() {
+function userLogin(req, res, next) {
+  console.log("Enter controller function");
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/",
-  });
+  })(req, res, next); // Explicitly invoke the middleware
 }
 
 async function userSignUp(req, res) {
