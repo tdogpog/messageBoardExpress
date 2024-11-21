@@ -41,17 +41,10 @@ async function homepage(req, res) {
     const messages = await getAllMessages();
     console.log("messages after the db await", messages);
 
-    //check if the user is a member
-    const isMember =
-      req.session.user && req.session.user.membership === "member";
-
     //conditional return to the const
     // what will be sent to the render response
     const messagesToRender = messages.map((message) => {
-      if (isMember) {
-        //contains messages.title, messages.message AS content,
-        //messages.timestamp,
-        //users.username
+      if (req.user && req.user.membership) {
         return {
           title: message.title,
           content: message.content,
@@ -72,7 +65,10 @@ async function homepage(req, res) {
 
     res.render("index", {
       title: "Message Board",
+      // this doesnt cause a crash if you dont give a ternary
       user: req.user,
+      // this causes a crash if you dont give a ternary
+      member: req.user ? req.user.membership : null,
       messages: messagesToRender,
     });
   } catch (error) {
@@ -144,14 +140,14 @@ async function userSignUp(req, res) {
 
 //membership section//
 function getMembership(req, res) {
-  res.render("membership");
+  res.render("membership", { error: "" });
 }
 //VERIFY THAT THE USERID REQ.SES HOOKS THE DB USERID
 async function handleMembership(req, res) {
   const { secretKey } = req.body;
   if (secretKey === process.env.MEMBERSHIP_SECRET) {
     try {
-      const userID = req.session.user.id;
+      const userID = req.user.id;
       await pool.query("UPDATE users SET membership=true WHERE id=$1", [
         userID,
       ]);

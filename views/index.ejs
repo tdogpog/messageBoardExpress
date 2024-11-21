@@ -37,7 +37,7 @@
       <li>
         <strong><%= message.title %></strong>
         <p><%= message.content %></p>
-        <% if (user && user.membership === "member") { %>
+        <% if (member) { %>
         <small>By: <%= message.username %> on <%= message.timestamp %></small>
         <% } %>
       </li>
